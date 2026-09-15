@@ -1,10 +1,11 @@
-from typing import TypedDict
+import operator
+from typing import Annotated, TypedDict
 
 
 class CopilotState(TypedDict):
     jd_text:str
     jd: dict
-    log:list[str]
+    log: Annotated[list[str],operator.add]
     resume_text:str
     match:dict
     error:str | None

@@ -35,9 +35,12 @@ def match_resume(state:dict)->dict:
   resume_text = state.get("resume_text","")
   jd = state.get("jd",{})
 
+  
   if not resume_text:
     return {"error": "resume_text is empty",
                 "log": log + ["match_resume: blocked, empty resume_text"]}
+  
+
   try:
     completion = client.beta.chat.completions.parse(
         model='gpt-oss:20b',
@@ -54,7 +57,7 @@ def match_resume(state:dict)->dict:
     raw_json = re.search(r"\{.*\}", raw, re.DOTALL).group(0)
 
     parsed = Match.model_validate_json(raw_json)
-
+    print(os.getenv('OLLAMA_API_KEY'))
     return {
         'match': parsed.model_dump(),"error": None,
         'log': log + [f"match_resume: ok, {parsed.match_score}"],
