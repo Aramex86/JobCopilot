@@ -32,6 +32,7 @@ SYSTEM_PROMPT = (
     "If a field is not in the text, use null for salary and empty lists."
 )
 def parse_jd(state: CopilotState) -> dict: 
+    
     try:
         completion = client.beta.chat.completions.parse(
             model='gpt-oss:20b',

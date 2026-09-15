@@ -1,12 +1,13 @@
 from dotenv import load_dotenv
 
-load_dotenv()  # Load environment variables from .env file
+load_dotenv(override=True)  # Load environment variables from .env file
 
-from match_resume import match_resume
-from parse_jd import parse_jd
+from graph import build_graph
 from state import new_state
 
 state = new_state()
+
+app = build_graph()
 
 state["jd_text"] = """
 Senior React Developer — Acme Corp (Remote)
@@ -29,16 +30,12 @@ REST and GraphQL integration, Jest tests.
 Team lead experience.
 """
 
-updates = parse_jd(state)
-state.update(updates)
+result = app.invoke(state)
 
-if state['error'] is None:
-    state.update(match_resume(state))
-
-print("JD:", state["jd"])
-print("LOG:", state["log"])
-print("MATCH:", state["match"])
-print("ERROR:", state["error"])
+print("JD:", result["jd"])
+print("LOG:", result["log"])
+print("MATCH:", result["match"])
+print("ERROR:", result["error"])
 
 
 
