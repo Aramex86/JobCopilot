@@ -9,3 +9,10 @@ wheels/
 # Virtual environments
 .venv
 .env
+.pipeline/
+work/
+probe*.json
+run-agent.bak.mjs
+run-agent-patched.mjs
+.env.*
+!.env.sample
